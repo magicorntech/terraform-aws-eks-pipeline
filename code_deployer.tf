@@ -12,7 +12,7 @@ resource "aws_codebuild_project" "deploy" {
 
   environment {
     compute_type                = "BUILD_GENERAL1_SMALL"
-    image                       = "public.ecr.aws/magicorn/awskubehelm:${var.deployer_version}"
+    image                       = "public.ecr.aws/magicorn/tools-deploy:${var.deployer_version}"
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "SERVICE_ROLE"
     privileged_mode             = false
