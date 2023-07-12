@@ -1,12 +1,12 @@
 resource "random_id" "codepipeline" {
-  byte_length = 8
+  byte_length = 6
 }
 
 resource "aws_s3_bucket" "main" {
-  bucket = "${var.tenant}-${var.name}-${var.pipeline_name}-codepipeline-${random_id.codepipeline.hex}-${var.environment}"
+  bucket = "${var.tenant}-${var.name}-${var.pipeline_name}-cp-${random_id.codepipeline.hex}-${var.environment}"
 
   tags = {
-    Name        = "${var.tenant}-${var.name}-${var.pipeline_name}-codepipeline-${random_id.codepipeline.hex}-${var.environment}"
+    Name        = "${var.tenant}-${var.name}-${var.pipeline_name}-cp-${random_id.codepipeline.hex}-${var.environment}"
     Tenant      = var.tenant
     Project     = var.name
     Environment = var.environment
@@ -27,7 +27,7 @@ resource "aws_s3_bucket_policy" "main" {
       "Effect": "Deny",
       "Principal": "*",
       "Action": "s3:PutObject",
-      "Resource": "arn:aws:s3:::${var.tenant}-${var.name}-${var.pipeline_name}-codepipeline-${random_id.codepipeline.hex}-${var.environment}/*",
+      "Resource": "arn:aws:s3:::${var.tenant}-${var.name}-${var.pipeline_name}-cp-${random_id.codepipeline.hex}-${var.environment}/*",
       "Condition": {
         "StringNotEquals": {
           "s3:x-amz-server-side-encryption": "aws:kms"
@@ -39,7 +39,7 @@ resource "aws_s3_bucket_policy" "main" {
       "Effect": "Deny",
       "Principal": "*",
       "Action": "s3:*",
-      "Resource": "arn:aws:s3:::${var.tenant}-${var.name}-${var.pipeline_name}-codepipeline-${random_id.codepipeline.hex}-${var.environment}/*",
+      "Resource": "arn:aws:s3:::${var.tenant}-${var.name}-${var.pipeline_name}-cp-${random_id.codepipeline.hex}-${var.environment}/*",
       "Condition": {
         "Bool": {
           "aws:SecureTransport": "false"
