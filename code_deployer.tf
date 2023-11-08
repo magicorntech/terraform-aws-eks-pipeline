@@ -1,10 +1,10 @@
 resource "aws_codebuild_project" "deploy" {
-  count          = (var.enable_aws_cicd == true) ? 1 : 0
+  count          = (var.enable_deploy == true) ? 1 : 0
   name           = "${var.tenant}-${var.name}-${var.pipeline_name}-deploy-${var.environment}"
   description    = "Managed by Magicorn"
   build_timeout  = var.build_timeout
   queued_timeout = var.queued_timeout
-  service_role   = data.aws_iam_role.deployer[0].arn
+  service_role   = var.deployer_role_arn
 
   artifacts {
     type = "CODEPIPELINE"

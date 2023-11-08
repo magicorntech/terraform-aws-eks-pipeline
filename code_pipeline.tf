@@ -49,7 +49,7 @@ resource "aws_codepipeline" "main" {
   }
 
   dynamic "stage" {
-    for_each = (var.enable_aws_cicd == true) ? [true] : []
+    for_each = (var.enable_deploy == true) ? [true] : []
     content {
       name = "Deploy"
 
