@@ -4,6 +4,7 @@ variable "environment" {}
 variable "vpc_id" {}
 variable "subnet_ids" {}
 variable "enable_deploy" {}
+variable "deploy_approval" {}
 variable "pipeline_name" {}
 variable "connection_arn" {}
 variable "repository" {}

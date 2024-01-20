@@ -49,6 +49,21 @@ resource "aws_codepipeline" "main" {
   }
 
   dynamic "stage" {
+    for_each = (var.deploy_approval == true) ? [true] : []
+    content {
+      name = "Approval"
+
+      action {
+        name             = "Approval"
+        category         = "Approval"
+        owner            = "AWS"
+        provider         = "Manual"
+        version          = "1"
+      }
+    }
+  }
+
+  dynamic "stage" {
     for_each = (var.enable_deploy == true) ? [true] : []
     content {
       name = "Deploy"
