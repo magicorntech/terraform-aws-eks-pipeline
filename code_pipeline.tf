@@ -49,7 +49,7 @@ resource "aws_codepipeline" "main" {
   }
 
   dynamic "stage" {
-    for_each = (var.deploy_approval == true) ? [true] : []
+    for_each = (var.enable_deploy == true && var.deploy_approval == true) ? [true] : []
     content {
       name = "Approval"
 
